@@ -4,14 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Untuk Beeyyy 💛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-body {
+:root {
+    --rose: #e8748a;
+    --blush: #f9c0c9;
+    --gold: #f7d794;
+    --cream: #fff9f9;
+    --deep: #c04a6a;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
-    font-family: Arial, sans-serif;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
     overflow: hidden;
     text-align: center;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    background: linear-gradient(135deg, #f7c5cf 0%, #fddde6 50%, #f7c5cf 100%);
+    background-size: 400% 400%;
+    animation: bgShift 8s ease infinite;
+}
+
+@keyframes bgShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ===== PARTICLES ===== */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp linear infinite;
+    opacity: 0;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-20px) rotate(360deg); opacity: 0; }
+}
+
+/* ===== GLITTER ===== */
+.glitter {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    pointer-events: none;
+    z-index: 0;
+    animation: glitterFall linear forwards;
+}
+
+@keyframes glitterFall {
+    0% { transform: translateY(-10px) scale(0); opacity: 1; }
+    50% { opacity: 1; transform: translateY(50vh) scale(1); }
+    100% { transform: translateY(110vh) scale(0.5); opacity: 0; }
 }
 
 /* ===== PASSWORD PAGE ===== */
@@ -21,122 +76,370 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 10;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lock-icon {
+    font-size: 60px;
+    animation: pulse 2s ease-in-out infinite;
+    display: block;
+    margin-bottom: 10px;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+#passwordPage h1 {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: clamp(18px, 4vw, 28px);
+    text-shadow: 0 2px 15px rgba(192, 74, 106, 0.4);
+    max-width: 500px;
+    padding: 0 20px;
+    line-height: 1.5;
+    animation: fadeIn 1.2s ease 0.3s both;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-top: 25px;
+    animation: fadeIn 1.2s ease 0.6s both;
 }
 
 #passwordPage input {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    border: 2px solid rgba(255,255,255,0.6);
     font-size: 16px;
-    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
     text-align: center;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    color: var(--deep);
+    outline: none;
+    width: 260px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(192,74,106,0.2);
+}
+
+#passwordPage input:focus {
+    border-color: var(--rose);
+    background: white;
+    box-shadow: 0 8px 30px rgba(192,74,106,0.4), 0 0 0 4px rgba(232,116,138,0.15);
+    transform: scale(1.02);
 }
 
 #passwordPage button {
-    margin-top: 10px;
-    padding: 8px 20px;
-    border-radius: 10px;
+    display: block;
+    margin: 15px auto 0;
+    padding: 13px 35px;
+    border-radius: 50px;
     border: none;
     cursor: pointer;
-    background: pink;
+    background: linear-gradient(135deg, var(--rose), var(--deep));
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 25px rgba(192,74,106,0.4);
+    transition: all 0.3s ease;
+    animation: fadeIn 1.2s ease 0.9s both;
 }
 
-/* ===== GAME ===== */
+#passwordPage button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 35px rgba(192,74,106,0.5);
+}
+
+#passwordPage button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+#errorText {
+    color: white;
+    font-size: 14px;
+    margin-top: 12px;
+    min-height: 20px;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+/* ===== GAME CONTAINER ===== */
 #gameContainer {
     display: none;
+    position: relative;
+    z-index: 10;
+    animation: fadeIn 0.8s ease;
 }
 
-h1 {
+#gameContainer h1 {
+    font-family: 'Playfair Display', serif;
     color: white;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-size: clamp(18px, 4vw, 26px);
+    text-shadow: 0 2px 15px rgba(192,74,106,0.3);
 }
 
 #score {
     color: white;
     font-size: 20px;
+    margin: 8px 0;
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 1px;
 }
 
 #gameArea {
     position: relative;
     width: 90vw;
     height: 60vh;
-    margin: 20px auto;
-    background: white;
-    border-radius: 20px;
+    margin: 15px auto;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
     overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.8);
+    box-shadow: 0 20px 60px rgba(192,74,106,0.2), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
 .box {
-    width: 60px;
-    height: 60px;
-    background: pink;
+    width: 62px;
+    height: 62px;
+    background: linear-gradient(135deg, #ff8fa8, #e8748a);
     position: absolute;
-    border-radius: 15px;
+    border-radius: 50%;
     cursor: pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:25px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 6px 20px rgba(232,116,138,0.45), 0 0 0 0 rgba(232,116,138,0.4);
+    animation: heartAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), heartbeat 1.8s ease-in-out infinite;
+    transition: transform 0.15s ease;
 }
 
+@keyframes heartAppear {
+    from { transform: scale(0) rotate(-10deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(232,116,138,0.45), 0 0 0 0 rgba(232,116,138,0.4); }
+    50% { transform: scale(1.08); box-shadow: 0 6px 20px rgba(232,116,138,0.45), 0 0 0 8px rgba(232,116,138,0); }
+}
+
+.box:hover {
+    transform: scale(1.15) !important;
+    animation-play-state: paused;
+}
+
+.box:active {
+    transform: scale(0.9) !important;
+}
+
+/* ===== SCORE POPUP ===== */
+.score-pop {
+    position: absolute;
+    font-size: 22px;
+    color: var(--deep);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    pointer-events: none;
+    animation: scorePop 0.8s ease forwards;
+    z-index: 99;
+}
+
+@keyframes scorePop {
+    0% { transform: translateY(0) scale(0.5); opacity: 1; }
+    100% { transform: translateY(-60px) scale(1.2); opacity: 0; }
+}
+
+/* ===== FLOWER / FALLING EMOJI ===== */
 .flower {
     position: fixed;
-    top: -50px;
-    font-size: 24px;
-    animation: fall linear infinite;
+    top: -60px;
+    font-size: 20px;
+    animation: fall linear forwards;
     pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
 }
 
 @keyframes fall {
-    to { transform: translateY(110vh); }
+    0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+    10% { opacity: 0.9; }
+    90% { opacity: 0.9; }
+    100% { transform: translateY(115vh) rotate(360deg) scale(1); opacity: 0; }
 }
 
 /* ===== PAGE 2 ===== */
 #page2 {
     display: none;
-    min-height: 100vh;                /* supaya tidak kepotong */
-    padding: 70px 20px 140px 20px;    /* atas & bawah diperbesar */
+    min-height: 100vh;
+    padding: 60px 20px 140px 20px;
     overflow-y: auto;
     box-sizing: border-box;
-    background: linear-gradient(135deg, #ffd1de, #ee9ca7);
+    background: linear-gradient(160deg, #f8c5d0 0%, #ee9ca7 40%, #d4708a 100%);
     color: white;
     opacity: 0;
-    transition: opacity 1.5s ease;
+    transition: opacity 1.8s ease;
+    position: relative;
+    z-index: 10;
 }
 
-/* gambar tetap */
+#page2::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,200,210,0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+#page2 h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 38px);
+    text-shadow: 0 3px 20px rgba(150,30,60,0.3);
+    line-height: 1.4;
+    animation: slideDown 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin-bottom: 20px;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 #page2 img {
     width: 260px;
     border-radius: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
+    box-shadow: 0 20px 60px rgba(150,30,60,0.3), 0 0 0 4px rgba(255,255,255,0.3);
+    animation: imgReveal 1s ease 0.5s both;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* ===== RESPONSIVE HP ===== */
+#page2 img:hover {
+    transform: scale(1.04) rotate(1deg);
+    box-shadow: 0 28px 80px rgba(150,30,60,0.4), 0 0 0 5px rgba(255,255,255,0.4);
+}
+
+@keyframes imgReveal {
+    from { transform: scale(0.8) rotate(-3deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+#page2 p {
+    font-size: 17px;
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 22px 28px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 8px 30px rgba(150,30,60,0.1);
+    text-shadow: 0 1px 3px rgba(120,20,50,0.15);
+    animation: cardReveal 0.8s ease both;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#page2 p:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(150,30,60,0.2);
+}
+
+#page2 p:nth-child(3) { animation-delay: 0.2s; }
+#page2 p:nth-child(4) { animation-delay: 0.4s; }
+#page2 p:nth-child(5) { animation-delay: 0.6s; }
+#page2 p:nth-child(6) { animation-delay: 0.8s; }
+#page2 p:nth-child(8) { animation-delay: 1.0s; }
+#page2 p:nth-child(9) { animation-delay: 1.2s; }
+
+@keyframes cardReveal {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+#page2 hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+#page2 b {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05em;
+}
+
+/* ===== PROGRESS BAR GAME ===== */
+#progressBar {
+    width: 90vw;
+    height: 8px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50px;
+    margin: 0 auto 5px;
+    overflow: hidden;
+}
+
+#progressFill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff8fa8, var(--gold));
+    border-radius: 50px;
+    width: 0%;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 10px rgba(247,215,148,0.6);
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width: 600px) {
     #page2 {
-        padding-top: 90px;
-        padding-bottom: 180px;
+        padding-top: 50px;
+        padding-bottom: 160px;
     }
-
     #page2 p {
-        font-size: 16px;
-        line-height: 1.8;
+        font-size: 15px;
+        padding: 18px 20px;
     }
 }
+</style>
+</head>
+
+<body>
 
 <!-- ===== PASSWORD PAGE ===== -->
 <div id="passwordPage">
-    <h1>Masukin Password Dulu Beeyyy Cluenya Mobil Aku 🔐</h1>
-    <input type="password" id="passwordInput" placeholder="Masukkan Password">
+    <span class="lock-icon">🔐</span>
+    <h1>Masukin Password Dulu Beeyyy Cluenya Mobil Aku</h1>
+    <div class="input-wrapper">
+        <input type="password" id="passwordInput" placeholder="Masukkan Password" onkeydown="if(event.key==='Enter') checkPassword()">
+    </div>
     <button onclick="checkPassword()">Masuk 💛</button>
-    <p id="errorText" style="color:white;"></p>
+    <p id="errorText"></p>
 </div>
 
 <!-- ===== GAME CONTAINER ===== -->
 <div id="gameContainer">
     <h1>Tap Hati Dari Aku Beeyyy 💕</h1>
-    <div id="score">Skor: 0</div>
+    <div id="score">Skor: 0 / 10</div>
+    <div id="progressBar"><div id="progressFill"></div></div>
     <div id="gameArea"></div>
 </div>
 
@@ -145,47 +448,44 @@ h1 {
     <h1>Untuk Kamu Yang Paling Aku Sayang 💛</h1>
     <img src="1.jpeg">
 
-      <p>
+    <p>
         Ihhhh pinternya bebeeyyku menangkap semua hati dari akuuu
         Beeyyy… maafin aku yaa 🥺💛  
         Aku sadar kadang aku bisa jadi manusia paling ngeselin sedunia.
         Kadang aku bikin kamu kesel, bikin kamu capek, bikin kamu tarik napas panjang.
-        </p>
+    </p>
 
-        <p>
+    <p>
         Tapi jujur yaa… bukan karena aku nggak peduli.
         Justru karena aku terlalu peduli.
         Aku terlalu takut kehilangan kamu,
         terlalu takut kalau suatu hari kamu beneran pergi.
-        </p>
+    </p>
 
-        <p>
+    <p>
         Mau sekesel apapun kamu sama aku,
         semoga jangan pernah berhenti sayang sama aku yaa.
         Karena aku?  
         Aku nggak pernah berhenti sayang sama kamu.
         Bahkan tiap hari rasanya makin nambah 😌💛
-        </p>
+    </p>
 
-        <p>
+    <p>
         I love you sooo muchhh bebbeeeyyyyy kusayang 🤍
         Kalau boleh egois sedikit,
         aku maunya kamu tetap sama aku terus.
-        </p>
+    </p>
 
-        <hr>
+    <hr>
 
-        <p><b>Bonus nih beyyy buat kamu 😆</b></p>
-        <p>
+    <p><b>Bonus nih beyyy buat kamu 😆</b></p>
+    <p>
         Jalan-jalan ke pasar niatnya mau beli mangga eh ternyata tokonya tutup jadinya kita ke Kota Tua naik mobil yang namanya solara tapi sebelum kesana kita isi bensin dulu bareng kamu berdua eh bingung mau kemana 
         pas banget ada atraksi di depan kita akhirnya kita duduk di pinggir jalan rayaa lewat tukang kerak telor kita beli dua,<br>
         Maafin aku yaa, siniiiii aku peluk sampai semuanya reda 😆💛
-
-            
     </p>
 </div>
 
-<!-- ===== AUDIO ===== -->
 <audio id="bgMusic" loop>
     <source src="Lagu.mp3" type="audio/mpeg">
 </audio>
@@ -195,24 +495,34 @@ let score = 0;
 let target = 10;
 let gameArea = document.getElementById("gameArea");
 let scoreText = document.getElementById("score");
+let progressFill = document.getElementById("progressFill");
 let music = document.getElementById("bgMusic");
 
 music.volume = 0.4;
 
-function startMusicOnce() {
+document.addEventListener("click", function startMusicOnce(){
     music.play();
     document.removeEventListener("click", startMusicOnce);
-}
-document.addEventListener("click", startMusicOnce);
+});
 
 function checkPassword(){
     let input = document.getElementById("passwordInput").value;
     if(input === "Solara"){
-        document.getElementById("passwordPage").style.display = "none";
-        document.getElementById("gameContainer").style.display = "block";
-        createBox();
+        let pw = document.getElementById("passwordPage");
+        pw.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        pw.style.opacity = "0";
+        pw.style.transform = "scale(0.95)";
+        setTimeout(() => {
+            pw.style.display = "none";
+            document.getElementById("gameContainer").style.display = "block";
+            createBox();
+        }, 800);
     } else {
-        document.getElementById("errorText").innerText = "Password salah beeyyy 😭";
+        let err = document.getElementById("errorText");
+        err.innerText = "Password salah beeyyy 😭";
+        err.style.animation = "none";
+        err.offsetHeight; // reflow
+        err.style.animation = "shake 0.4s ease";
     }
 }
 
@@ -220,50 +530,138 @@ function createBox(){
     let box = document.createElement("div");
     box.classList.add("box");
 
-    let x = Math.random() * (gameArea.clientWidth - 60);
-    let y = Math.random() * (gameArea.clientHeight - 60);
+    let maxX = gameArea.clientWidth - 70;
+    let maxY = gameArea.clientHeight - 70;
+    let x = Math.max(5, Math.random() * maxX);
+    let y = Math.max(5, Math.random() * maxY);
 
     box.style.left = x + "px";
     box.style.top = y + "px";
     box.innerHTML = "💖";
 
-    box.onclick = function(){
+    box.onclick = function(e){
+        // Score popup
+        let pop = document.createElement("div");
+        pop.className = "score-pop";
+        pop.innerText = "+1 💛";
+        pop.style.left = (x + 10) + "px";
+        pop.style.top = (y - 10) + "px";
+        gameArea.appendChild(pop);
+        setTimeout(() => pop.remove(), 800);
+
+        // Burst particles at click
+        createBurst(e.clientX, e.clientY);
+
         score++;
-        scoreText.innerText = "Skor: " + score;
+        scoreText.innerText = "Skor: " + score + " / " + target;
+        progressFill.style.width = (score / target * 100) + "%";
         box.remove();
         if(score >= target){
             winGame();
         } else {
             createBox();
         }
-    }
+    };
     gameArea.appendChild(box);
 }
 
-function winGame(){
-    document.getElementById("gameContainer").style.display = "none";
-    let page2 = document.getElementById("page2");
-    page2.style.display = "block";
-    setTimeout(()=>{ page2.style.opacity = "1"; },200);
+function createBurst(cx, cy){
+    const emojis = ["💖","✨","💛","🌸","💕"];
+    for(let i = 0; i < 6; i++){
+        let b = document.createElement("div");
+        b.style.cssText = `
+            position: fixed;
+            left: ${cx}px;
+            top: ${cy}px;
+            font-size: ${14 + Math.random()*10}px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.6s ease, opacity 0.6s ease;
+            opacity: 1;
+        `;
+        b.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        document.body.appendChild(b);
+        let angle = (Math.PI * 2 / 6) * i;
+        let dist = 50 + Math.random() * 50;
+        let dx = Math.cos(angle) * dist;
+        let dy = Math.sin(angle) * dist;
+        setTimeout(() => {
+            b.style.transform = `translate(${dx}px, ${dy}px) scale(0.3)`;
+            b.style.opacity = "0";
+        }, 10);
+        setTimeout(() => b.remove(), 700);
+    }
 }
 
+function winGame(){
+    let gc = document.getElementById("gameContainer");
+    gc.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+    gc.style.opacity = "0";
+    gc.style.transform = "scale(0.95)";
+    setTimeout(() => {
+        gc.style.display = "none";
+        let page2 = document.getElementById("page2");
+        page2.style.display = "block";
+        setTimeout(() => { page2.style.opacity = "1"; }, 200);
+    }, 800);
+}
+
+// ===== FALLING EMOJIS (varied) =====
+const fallingEmojis = ["🌸","💖","🌷","✨","💕","🌺","💛","🦋"];
 function createFlower(){
     let flower = document.createElement("div");
     flower.classList.add("flower");
-    flower.innerHTML = "🌸";
+    flower.innerHTML = fallingEmojis[Math.floor(Math.random()*fallingEmojis.length)];
     flower.style.left = Math.random() * 100 + "vw";
-    flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+    let dur = 5 + Math.random() * 5;
+    flower.style.animationDuration = dur + "s";
+    flower.style.fontSize = (14 + Math.random() * 14) + "px";
     document.body.appendChild(flower);
-    setTimeout(()=>{ flower.remove(); },8000);
+    setTimeout(() => flower.remove(), dur * 1000 + 200);
 }
-setInterval(createFlower, 500);
+setInterval(createFlower, 600);
+
+// ===== GLITTER =====
+function createGlitter(){
+    let g = document.createElement("div");
+    g.classList.add("glitter");
+    g.style.left = Math.random() * 100 + "vw";
+    g.style.top = "-10px";
+    g.style.background = Math.random() > 0.5 ? "var(--gold)" : "white";
+    g.style.width = g.style.height = (2 + Math.random()*3) + "px";
+    let dur = 3 + Math.random() * 4;
+    g.style.animationDuration = dur + "s";
+    document.body.appendChild(g);
+    setTimeout(() => g.remove(), dur * 1000);
+}
+setInterval(createGlitter, 200);
+
+// ===== CURSOR SPARKLE =====
+document.addEventListener("mousemove", function(e){
+    if(Math.random() > 0.85){
+        let s = document.createElement("div");
+        s.style.cssText = `
+            position: fixed;
+            left: ${e.clientX}px;
+            top: ${e.clientY}px;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            transform: scale(1);
+            opacity: 1;
+        `;
+        document.body.appendChild(s);
+        setTimeout(() => {
+            s.style.transform = "scale(2)";
+            s.style.opacity = "0";
+        }, 10);
+        setTimeout(() => s.remove(), 600);
+    }
+});
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
