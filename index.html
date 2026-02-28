@@ -95,24 +95,35 @@ h1 {
 /* ===== PAGE 2 ===== */
 #page2 {
     display: none;
-    padding: 20px;
-    height: 100vh;
+    min-height: 100vh;                /* supaya tidak kepotong */
+    padding: 70px 20px 140px 20px;    /* atas & bawah diperbesar */
     overflow-y: auto;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #ffd1de, #ee9ca7);
     color: white;
     opacity: 0;
     transition: opacity 1.5s ease;
 }
 
+/* gambar tetap */
 #page2 img {
     width: 260px;
     border-radius: 20px;
     margin-top: 20px;
 }
-</style>
-</head>
 
-<body>
+/* ===== RESPONSIVE HP ===== */
+@media (max-width: 600px) {
+    #page2 {
+        padding-top: 90px;
+        padding-bottom: 180px;
+    }
+
+    #page2 p {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+}
 
 <!-- ===== PASSWORD PAGE ===== -->
 <div id="passwordPage">
@@ -250,6 +261,7 @@ setInterval(createFlower, 500);
 
 </body>
 </html>
+
 
 
 
