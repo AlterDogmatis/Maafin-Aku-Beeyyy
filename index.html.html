@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Beeyyy 💛</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    text-align: center;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+/* ===== PASSWORD PAGE ===== */
+#passwordPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#passwordPage input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#passwordPage button {
+    margin-top: 10px;
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: pink;
+}
+
+/* ===== GAME ===== */
+#gameContainer {
+    display: none;
+}
+
+h1 {
+    color: white;
+    margin-top: 20px;
+}
+
+#score {
+    color: white;
+    font-size: 20px;
+}
+
+#gameArea {
+    position: relative;
+    width: 90vw;
+    height: 60vh;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.box {
+    width: 60px;
+    height: 60px;
+    background: pink;
+    position: absolute;
+    border-radius: 15px;
+    cursor: pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.flower {
+    position: fixed;
+    top: -50px;
+    font-size: 24px;
+    animation: fall linear infinite;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+/* ===== PAGE 2 ===== */
+#page2 {
+    display: none;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    color: white;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+#page2 img {
+    width: 260px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== PASSWORD PAGE ===== -->
+<div id="passwordPage">
+    <h1>Masukin Password Dulu Beeyyy 🔐</h1>
+    <input type="password" id="passwordInput" placeholder="Masukkan Password">
+    <button onclick="checkPassword()">Masuk 💛</button>
+    <p id="errorText" style="color:white;"></p>
+</div>
+
+<!-- ===== GAME CONTAINER ===== -->
+<div id="gameContainer">
+    <h1>Tap Hati Ini Beeyyy 💕</h1>
+    <div id="score">Skor: 0</div>
+    <div id="gameArea"></div>
+</div>
+
+<!-- ===== PAGE 2 ===== -->
+<div id="page2">
+    <h1>Untuk Kamu Yang Paling Aku Sayang 💛</h1>
+    <img src="1.jpeg">
+
+      <p>
+        Beeyyy… maafin aku yaa 🥺💛  
+        Aku sadar kadang aku bisa jadi manusia paling ngeselin sedunia.
+        Kadang aku bikin kamu kesel, bikin kamu capek, bikin kamu tarik napas panjang.
+        </p>
+
+        <p>
+        Tapi jujur yaa… bukan karena aku nggak peduli.
+        Justru karena aku terlalu peduli.
+        Aku terlalu takut kehilangan kamu,
+        terlalu takut kalau suatu hari kamu beneran pergi.
+        </p>
+
+        <p>
+        Mau sekesel apapun kamu sama aku,
+        semoga jangan pernah berhenti sayang sama aku yaa.
+        Karena aku?  
+        Aku nggak pernah berhenti sayang sama kamu.
+        Bahkan tiap hari rasanya makin nambah 😌💛
+        </p>
+
+        <p>
+        I love you sooo muchhh bebbeeeyyyyy kusayang 🤍
+        Kalau boleh egois sedikit,
+        aku maunya kamu tetap sama aku terus.
+        </p>
+
+        <hr>
+
+        <p><b>Bonus nih beyyy buat kamu 😆</b></p>
+
+        <p>
+        Ke Condet beli rambutan,<br>
+        pulangnya naik oplet sendirian.<br>
+        Kalau aku banyak kesalahan,<br>
+        jangan tinggalin, ntar aku kesepian 🥲
+        </p>
+
+        <p>
+        Beli kerak telor di pinggir kali,<br>
+        makannya sambil duduk berdua.<br>
+        Kalau kamu masih bete lagi,<br>
+        sini aku peluk sampai reda semua 😌💕
+        </p>
+
+        <p>
+        Jalan-jalan ke Kota Tua bareng kamu berdua eh bingung mau kemana pas banget ada atraksi di depan kita akhirnya kita duduk di pinggir jalan rayaa,<br>
+        Maafin aku yaa 😆💛
+    </p>
+</div>
+
+<!-- ===== AUDIO ===== -->
+<audio id="bgMusic" loop>
+    <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let score = 0;
+let target = 10;
+let gameArea = document.getElementById("gameArea");
+let scoreText = document.getElementById("score");
+let music = document.getElementById("bgMusic");
+
+music.volume = 0.4;
+
+function startMusicOnce() {
+    music.play();
+    document.removeEventListener("click", startMusicOnce);
+}
+document.addEventListener("click", startMusicOnce);
+
+function checkPassword(){
+    let input = document.getElementById("passwordInput").value;
+    if(input === "Solara"){
+        document.getElementById("passwordPage").style.display = "none";
+        document.getElementById("gameContainer").style.display = "block";
+        createBox();
+    } else {
+        document.getElementById("errorText").innerText = "Password salah beeyyy 😭";
+    }
+}
+
+function createBox(){
+    let box = document.createElement("div");
+    box.classList.add("box");
+
+    let x = Math.random() * (gameArea.clientWidth - 60);
+    let y = Math.random() * (gameArea.clientHeight - 60);
+
+    box.style.left = x + "px";
+    box.style.top = y + "px";
+    box.innerHTML = "💖";
+
+    box.onclick = function(){
+        score++;
+        scoreText.innerText = "Skor: " + score;
+        box.remove();
+        if(score >= target){
+            winGame();
+        } else {
+            createBox();
+        }
+    }
+    gameArea.appendChild(box);
+}
+
+function winGame(){
+    document.getElementById("gameContainer").style.display = "none";
+    let page2 = document.getElementById("page2");
+    page2.style.display = "block";
+    setTimeout(()=>{ page2.style.opacity = "1"; },200);
+}
+
+function createFlower(){
+    let flower = document.createElement("div");
+    flower.classList.add("flower");
+    flower.innerHTML = "🌸";
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(flower);
+    setTimeout(()=>{ flower.remove(); },8000);
+}
+setInterval(createFlower, 500);
+</script>
+
+</body>
+</html>
